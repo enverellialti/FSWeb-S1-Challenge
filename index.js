@@ -149,14 +149,16 @@ Aşağıdakileri konsolda gösterim (console.log) işlemi gerçekleştirerek, yu
 (işlev yazmanıza gerek yok) */
 
 //(1) Dizideki ilk fenomen (0. dizin) profil (profile) adı
-
+console.log(fenomenler[0].profile);
 
 //(2) Dizideki üçüncü fenomenin (2. dizin) takipçi (followers) sayısı
-
+console.log(fenomenler[2].followers)
 
 /* Görev 2 (otomatik kontrol testi yapılmayacak):
 (işlev yazmanıza gerek yok)
 Fenomenler dizisinde bir yazım hatası var 😱 7. sıradaki fenomen 'Justin Bieber' ın soyismi 'Biber' olarak yanlış yazılmış. Bu sorunu düzeltin ve çalışmanızı kontrol etmek için console.log() yapın.
+
+fenomenler[6].profile = "Justin Bieber"
 
 
 /*  Görev 3:
@@ -168,8 +170,9 @@ Aşağıdaki işlemleri yapmak için indekseGoreFenomen işlevini kullanın:
 NOT: DÖNDÜĞÜNÜZ DİZİN YUKARIDAKİ BİÇİMLE EŞLEŞMESİ GEREKİR, YA DA TESTİ GEÇMEYECEKTİR!
 ÖRNEK: fenomenler dizisi ve 3 sayısı ile indekseGoreFenomen çağrılırsa, `3. indekste bulunan fenomen: Leo Messi' */
 
-function indekseGoreFenomen(/*kod*/) {
-  /*kod*/
+function indekseGoreFenomen(fenomenler, j = 3) {
+
+  return (`${j}. indekste bulunan fenomen: ${fenomenler[j].profile}`);
 }
 
 
@@ -182,8 +185,10 @@ Aşağıdakileri yapmak için profilListesi'ni kullanın:
 🌟 Dönüş ÖRNEĞİ: ["Instagram", "Cristiano Ronaldo", "Kylie"....]
 */
 
-function profilListesi(/*kod*/) {
-  /*kod*/
+function profilListesi(fenomenler) {
+  var fenomenKopya = [...fenomenler];
+  var fenomenAdlari = fenomenKopya.map((fenomen) => fenomen.profile);
+  return fenomenAdlari
 }
 
 
@@ -197,8 +202,11 @@ Aşağıdakileri yapmak için fenomenSil'i kullanın:
 5. Ortaya çıkan diziyi döndürün
 
 ÖRNEK: fenomenSil işlevi fenomenler dizisi ve 0 indeks sayısı ile çağrılırsa, veri kümemizden 'Instagram' kaldırılmış olarak döndürür. */
-function fenomenSil(/*kod*/) {
-  /*kod*/
+function fenomenSil(fenomenler, k = 2) {
+  var fenomenKopya = [...fenomenler];
+  fenomenKopya.splice(k, 1);
+  return fenomenKopya;
+
 }
 
 
@@ -220,8 +228,17 @@ Aşağıdakileri yapmak için fenomenEkle'i kullanın:
 
 ÖRNEK: fenomenEkle(fenomenler, 6, "Workintech", 10000000, 2022, "Instagram") çağrıldığında dizinin sonuna yukarıdaki nesne en sona eklenerek yeni fenomenler dizisini döndürmelidir. */
 
-function fenomenEkle(/*kod*/) {
-  /*kod*/
+function fenomenEkle(fenomenler, p2 = 6, p3 = "Workintech", p4 = 10000000, p5 = 2022, p6 = "Instagram") {
+  var fenomenKopya = [...fenomenler];
+  var oNew = {
+    "number": 6,
+    "profile": "Workintech",
+    "followers": 10000000,
+    "posts": 2022,
+    "platform": "Instagram"
+  }
+  fenomenKopya.push(oNew);
+  return fenomenKopya;
 }
 
 
@@ -233,8 +250,10 @@ Aşağıdakileri yapmak için enFenomenler'yi kullanın:
 ÖRNEK: enFenomenler(fenomenler) çağrıldığında sonuç olarak ["Instagram", "Cristiano Ronaldo", ... "Khabane lame"] dönemelidir
 */
 
-function enFenomenler(/*kod*/) {
-  /*kod*/
+function enFenomenler(fenomenler) {
+  var fenomenCokTakipcili = fenomenler.filter(fenomenler => fenomenler.followers > 100000000);
+  var fenomenCokTakipciliAdlari = fenomenCokTakipcili.map((feno) => feno.profile);
+  return fenomenCokTakipciliAdlari;
 }
 
 
@@ -247,8 +266,11 @@ Aşağıdakileri yapmak için fenomenGonderimSayisi'nı kullanın:
 ÖRNEK: fenomenGonderimSayisi(fenomenler, 'Will Smith') çağrıldığında "136" dönmelidir
 */
 
-function fenomenGonderimSayisi(/*kod*/){
-  /*kod*/
+function fenomenGonderimSayisi(i = fenomenler, j = ' Will Smith') {
+  var fenomen = fenomenler.find(fenomenler => fenomenler.profile == 'Will Smith');
+  if (fenomen) {
+    return fenomen.posts
+  }
 }
 
 
@@ -264,10 +286,18 @@ Not: Gönderi sayısı belli olmayan (NA) hesaba katmayın.
 Örnek: platformaGoreCokGonderiYapanFenomen(fenomenler, 'TikTok') çağrıldığında "charli damelio" dönmelidir
 */
 
-function platformaGoreCokGonderiYapanFenomen(/*kod*/){
-  /*kod*/
-}
+function platformaGoreCokGonderiYapanFenomen(fenomenler, k) {
 
+  var fenoPlatform = [];
+  var fenoMax = 0;
+  for (let i = 0; i < fenomenler.length; i++) {
+    if (fenomenler[i].platform == k && fenomenler[i].posts > fenoMax && fenomenler[i].posts !== "NA") {
+      fenoMax = fenomenler[i].posts;
+      fenoPlatform.push(fenomenler[i]);
+    }
+  }
+  return fenoPlatform[fenoPlatform.length - 1].profile;
+}
 
 
 /* ***** GÖREVLERİN SONU ***** */
